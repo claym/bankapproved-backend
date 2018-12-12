@@ -1,0 +1,32 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String!
+  picture: String
+}
+
+type Application {
+  id: ID! @unique
+  ait: Int!
+  name: String!
+  owner: User
+  description: String
+  upstream: [Application] @relation(name: "Dependencies")
+  downstream: [Application] @relation(name: "Dependencies")
+}
+
+type Request {
+  id: ID! @unique
+  application: Application!
+  name: String!
+  description: String!
+  date: DateTime
+}
+
+type Approval {
+  id: ID! @unique
+  request: Request!
+  user: User!
+  approved: Boolean
+  notes: String
+}
